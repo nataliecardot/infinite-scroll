@@ -17,7 +17,7 @@ app.get('/api/photos', (req, res) => {
     // Using the URL /api/photos?start=1, req.query.start, a query parameter, will grab the 1 (in a URL, the query starts with a question mark - the question mark is used as a separator, and is not part of the query string)
     .listPhotos(req.query.start, req.query.count)
     .then(toJson)
-    .then(json => res.json(json))
+    .then(json => res.json(json));
 });
 
 const PORT = process.env.PORT || 5000;
