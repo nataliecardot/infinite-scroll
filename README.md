@@ -8,7 +8,7 @@ Infinite scroll built with Node, Express, React, and the Unsplash API.
 # Install dependencies (will also need to install dependencies from within client directory, the front end)
 npm install
 
-# Run Node server with Nodemon and start React development server from client folder (runs both front and back end)
+# Run Node server with Nodemon and start React development server from client folder (runs both front and back end, Node on localhost:5000 and React on localhost:3000)
 npm run dev
 ```
 
@@ -21,3 +21,5 @@ Back end:
 Front end:
 
 `create-react-app` was used to bootstrap the app and is contained within the `client` directory (the app's front end). `axios` is used to make requests to the back end (but the Fetch API may be used instead later).
+
+Create React App runs the app on its own development server, so the front and back end could not be served on the same server and port as is commonly practiced for full-stack apps. To eliminate the need for rerouting requests to the back end server and setting CORS headers, proxying is used. The `package.json` file in the front end directory contains a `proxy` field that proxies non-text/html requests to the back-end server.
