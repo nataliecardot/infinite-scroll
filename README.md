@@ -2,13 +2,18 @@
 
 Infinite scroll built with Node, Express, React, and the Unsplash API.
 
+**[View Live](https://infinite-scroll-unsplash.herokuapp.com/)**
+
 ## Quick Start
 
 ```bash
-# Install dependencies (will also need to install dependencies from within client directory, the front end)
+# Install dependencies (will also need to install dependencies from
+# within client directory, the front end)
 npm install
 
-# Run Node server with Nodemon and start React development server from client folder (runs both front and back end, Node on localhost:5000 and React on localhost:3000)
+# Run Node server with Nodemon and start React development server from
+# client folder (runs both front and back end, Node on localhost:5000
+# and React on localhost:3000)
 npm run dev
 ```
 
