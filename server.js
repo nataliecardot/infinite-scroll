@@ -20,6 +20,7 @@ app.get('/api/photos', (req, res) => {
     .then(json => res.json(json));
 });
 
+// Necessary for successful deploy to Heroku, along with adding the heroku-postbuild that goes into client, runs npm install and npm build, and adding config keys in Heroku project settings
 if (process.env.NODE_ENV) {
   app.use(express.static('client/build'));
   const path = require('path');
