@@ -31,25 +31,27 @@ export class Images extends Component {
 
   render() {
     console.log(this.state);
-    return <div className="images">
-      <InfiniteScroll
-        dataLength={this.state.images.length}
-        next={this.fetchImages}
-        hasMore={true}
-        loader={
-          <div className="loader-dots">
-            <span className="loader-dot"></span>
-            <span className="loader-dot"></span>
-            <span className="loader-dot"></span>
-            <span className="loader-dot"></span>
-          </div>
-        }
-      >
-        {this.state.images.map(image =>
-          <Image key={image.id} image={image} />
-        )}
-      </InfiniteScroll>
-    </div>;
+    return (
+      <div className="images">
+        <InfiniteScroll
+          dataLength={this.state.images.length}
+          next={this.fetchImages}
+          hasMore={true}
+          loader={
+            <div className="loader-dots">
+              <span className="loader-dot"></span>
+              <span className="loader-dot"></span>
+              <span className="loader-dot"></span>
+              <span className="loader-dot"></span>
+            </div>
+          }
+        >
+          {this.state.images.map(image =>
+            <Image key={image.id} image={image} />
+          )}
+        </InfiniteScroll>
+      </div>
+    );
   }
 }
 

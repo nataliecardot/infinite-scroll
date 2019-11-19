@@ -21,11 +21,16 @@ h1 {
   ...
 } */
 
-.single-photo {
+.single-image {
   margin: 1%;
   height: 350px;
   width: 350px;
   object-fit: cover;
+}
+
+.single-image:hover {
+  opacity: 0.7;
+  transition: 0.5s;
 }
 
 /* ------------ Loader ------------ */
@@ -97,7 +102,7 @@ h1 {
 
 /* Small screens */
 @media screen and (max-width: 767px) {
-  .single-photo {
+  .single-image {
     width: 100%;
   }
 
@@ -112,7 +117,7 @@ h1 {
 
 /* Tablets */
 @media screen and (min-width: 768px) and (max-width: 991px) {
-  .single-photo {
+  .single-image {
     height: 320px;
     width: 320px;
   }
