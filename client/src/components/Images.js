@@ -36,7 +36,14 @@ export class Images extends Component {
         dataLength={this.state.images.length}
         next={this.fetchImages}
         hasMore={true}
-        loader={<p>Loading...</p>}
+        loader={
+          <div className="loader-dots">
+            <span className="loader-dot"></span>
+            <span className="loader-dot"></span>
+            <span className="loader-dot"></span>
+            <span className="loader-dot"></span>
+          </div>
+        }
       >
         {this.state.images.map(image =>
           <Image key={image.id} image={image} />
