@@ -105,4 +105,8 @@ h1 {
   .title.is-2 {
     font-size: 2rem;
   }
+
+  .hero-body {
+    padding-top: 2rem;
+  }
 }
