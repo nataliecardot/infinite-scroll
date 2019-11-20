@@ -14,7 +14,9 @@ export class Images extends Component {
     searchStart: 1,
     term: '',
     search: false,
-    newSearch: false
+    newSearch: false,
+    blankSearch: false,
+    inputValue: ''
   };
 
   componentDidMount() {
@@ -37,9 +39,9 @@ export class Images extends Component {
 
   fetchSearchImages = () => {
     const { searchStart, count, term, searchImages } = this.state;
-    this.setState({
-      searchStart: searchStart + count
-    });
+
+    this.setState({ searchStart: searchStart + count });
+
     axios
       .get(`/api/photos/search?term=${term}&count=${count}&start=${searchStart}`)
       .then(res =>
@@ -51,12 +53,25 @@ export class Images extends Component {
 
   // Necessary to place fetchSearchImages in a setState callback to ensure other state is set first
   handleSubmit = () => {
-    this.setState({
-      searchImages: [],
-      searchStart: 1,
-      search: true,
-      newSearch: true
-    }, this.fetchSearchImages);
+    if (!this.state.term) {
+      this.setState({
+        images: [],
+        blankSearch: true,
+        newSearch: false,
+        search: false,
+        searchImages: [],
+        searchStart: 1,
+        start: 1,
+      }, this.fetchImages);
+    } else {
+      this.setState({
+        inputValue: '',
+        searchImages: [],
+        searchStart: 1,
+        search: true,
+        newSearch: true
+      }, this.fetchSearchImages);
+    }
   }
 
   handleInputChange = (e) => {
@@ -69,13 +84,13 @@ export class Images extends Component {
     return (
       <>
 
-      <SearchInput onSearch={this.handleInputChange} onFormSubmit={this.handleSubmit} term={this.state.term} />
+      <SearchInput onSearch={this.handleInputChange} value={this.state.inputValue} onFormSubmit={this.handleSubmit} />
 
       <div className="images">
         <InfiniteScroll
-          dataLength={this.state.newSearch || this.state.search ? this.state.searchImages.length : this.state.images.length}
+          dataLength={this.state.blankSearch ? this.state.images.length : (this.state.newSearch || this.state.search) ? this.state.searchImages.length : this.state.images.length}
           next={this.state.search ? this.fetchSearchImages : this.fetchImages}
-          hasMore={true}
+          hasMore={(this.state.images.length || this.state.searchImages.length) ? true : false}
           loader={
             <div className="loader-dots">
               <span className="loader-dot"></span>
@@ -86,6 +101,8 @@ export class Images extends Component {
           }
         >
         {this.state.newSearch || this.state.search ? this.state.searchImages.map(image =>
+          <Image key={image.id} image={image} />
+        ) : this.state.blankSearch ? this.state.images.map(image =>
           <Image key={image.id} image={image} />
         ) : this.state.images.map(image =>
           <Image key={image.id} image={image} />
