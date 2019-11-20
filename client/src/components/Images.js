@@ -54,7 +54,7 @@ export class Images extends Component {
 
   // Necessary to place fetchSearchImages in a setState callback to ensure other state is set first
   handleSubmit = () => {
-    if (!this.state.term) {
+    if (!this.state.inputValue) {
       this.setState({
         images: [],
         blankSearch: true,
@@ -66,7 +66,7 @@ export class Images extends Component {
       }, this.fetchImages);
     } else {
       this.setState({
-        inputValue: '',
+        term: this.state.inputValue,
         searchImages: [],
         searchPage: 1,
         page: 1,
@@ -78,7 +78,7 @@ export class Images extends Component {
 
   handleInputChange = (e) => {
     this.setState({
-      term: e
+      inputValue: e
     });
   }
 
@@ -92,7 +92,7 @@ export class Images extends Component {
         <InfiniteScroll
           dataLength={this.state.blankSearch ? this.state.images.length : (this.state.newSearch || this.state.search) ? this.state.searchImages.length : this.state.images.length}
           next={this.state.search ? this.fetchSearchImages : this.fetchImages}
-          hasMore={(this.state.images.length || this.state.searchImages.length) ? true : false}
+          hasMore={true}
           loader={
             <div className="loader-dots">
               <span className="loader-dot"></span>
