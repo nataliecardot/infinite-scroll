@@ -9,7 +9,7 @@ export class Images extends Component {
   state = {
     images: [],
     searchImages: [],
-    count: 4,
+    count: 15,
     page: 1,
     searchPage: 1,
     term: '',
