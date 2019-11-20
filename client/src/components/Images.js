@@ -43,7 +43,7 @@ export class Images extends Component {
   }
 
   fetchSearchImages = () => {
-    const { searchPage, count, term, searchImages, totalPages } = this.state;
+    const { searchPage, count, term, searchImages } = this.state;
 
     this.setState({
       inputValue: ''
@@ -56,16 +56,11 @@ export class Images extends Component {
           totalPages: res.data.total_pages,
           totalResults: res.data.total,
           searchImages: searchImages.concat(res.data.results),
-        }, () => {
-          console.log(totalPages); // Still null after first fetch, but set on second fetch
-          console.log(this.state.totalResults); // No longer null at this point on first fetch
-          if (searchPage < totalPages) {
-            this.setState({
-              searchPage: searchPage + 1,
-            });
-          }
-        }),
+        })
       );
+    this.setState({
+      searchPage: searchPage + 1,
+    });
   }
 
   // Necessary to place fetchSearchImages in a setState callback to ensure other state is set first
