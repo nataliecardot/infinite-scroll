@@ -86,7 +86,7 @@ export class Images extends Component {
     return (
       <>
 
-      <SearchInput onSearch={this.handleInputChange} value={this.state.inputValue} onFormSubmit={this.handleSubmit} />
+      <SearchInput onSearch={this.handleInputChange} inputValue={this.state.inputValue} onFormSubmit={this.handleSubmit} />
 
       <div className="images">
         <InfiniteScroll
