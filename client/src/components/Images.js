@@ -9,9 +9,9 @@ export class Images extends Component {
   state = {
     images: [],
     searchImages: [],
-    count: 30,
-    start: 1,
-    searchStart: 1,
+    count: 4,
+    page: 1,
+    searchPage: 1,
     term: '',
     search: false,
     newSearch: false,
@@ -20,30 +20,31 @@ export class Images extends Component {
   };
 
   componentDidMount() {
-    const { count, start } = this.state;
+    const { page, count } = this.state;
       axios
-        .get(`/api/photos?count=${count}&start=${start}`)
+        .get(`/api/photos?page=${page}&count=${count}`)
         .then(res => this.setState({ images: res.data }));
+    // To prevent same images being fetched upon scrolling (in the first call to fetchImages)
+    this.setState({ page: page + count });
   }
 
   fetchImages = () => {
-    const { count, start, images } = this.state;
-    // Will be at 1, then 31 (1 + 30), then 61 (31 + 30), and so forth
-    this.setState({ start: start + count });
+    const { page, count, images } = this.state;
+    this.setState({ page: page + 1 });
     axios
-      .get(`/api/photos?count=${count}&start=${start}`)
+      .get(`/api/photos?page=${page}&count=${count}`)
       .then(res =>
         this.setState({ images: images.concat(res.data) })
       );
   }
 
   fetchSearchImages = () => {
-    const { searchStart, count, term, searchImages } = this.state;
+    const { searchPage, count, term, searchImages } = this.state;
 
-    this.setState({ searchStart: searchStart + count });
+    this.setState({ searchPage: searchPage + 1 });
 
     axios
-      .get(`/api/photos/search?term=${term}&count=${count}&start=${searchStart}`)
+      .get(`/api/photos/search?term=${term}&page=${searchPage}&count=${count}`)
       .then(res =>
         this.setState({
           searchImages: searchImages.concat(res.data.results)
@@ -60,14 +61,15 @@ export class Images extends Component {
         newSearch: false,
         search: false,
         searchImages: [],
-        searchStart: 1,
-        start: 1,
+        searchPage: 1,
+        page: 1,
       }, this.fetchImages);
     } else {
       this.setState({
         inputValue: '',
         searchImages: [],
-        searchStart: 1,
+        searchPage: 1,
+        page: 1,
         search: true,
         newSearch: true
       }, this.fetchSearchImages);
@@ -101,11 +103,11 @@ export class Images extends Component {
           }
         >
         {this.state.newSearch || this.state.search ? this.state.searchImages.map(image =>
-          <Image key={image.id} image={image} />
+          <Image key={image.id + Math.random()} image={image} />
         ) : this.state.blankSearch ? this.state.images.map(image =>
-          <Image key={image.id} image={image} />
+          <Image key={image.id + Math.random()} image={image} />
         ) : this.state.images.map(image =>
-          <Image key={image.id} image={image} />
+          <Image key={image.id + Math.random()} image={image} />
         )}
       </InfiniteScroll>
       </div>

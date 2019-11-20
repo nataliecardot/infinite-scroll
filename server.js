@@ -13,7 +13,7 @@ const unsplash = new Unsplash({
 const app = express();
 
 app.get('/api/photos/search', (req, res) => {
-  unsplash.search.photos(req.query.term, req.query.searchStart, req.query.count)
+  unsplash.search.photos(req.query.term, req.query.searchPage, req.query.count)
   .then(toJson)
   .then(json => res.json(json))
 });
@@ -21,7 +21,7 @@ app.get('/api/photos/search', (req, res) => {
 app.get('/api/photos', (req, res) => {
   unsplash.photos
     // Using the URL /api/photos?start=1, req.query.start, a query parameter, will grab the 1 (in a URL, the query starts with a question mark - the question mark is used as a separator, and is not part of the query string)
-    .listPhotos(req.query.start, req.query.count)
+    .listPhotos(req.query.page, req.query.count)
     .then(toJson)
     .then(json => res.json(json));
 });
