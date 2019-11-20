@@ -9,14 +9,16 @@ export class Images extends Component {
   state = {
     images: [],
     searchImages: [],
-    count: 15,
+    count: 4,
     page: 1,
     searchPage: 1,
     term: '',
     search: false,
     newSearch: false,
     blankSearch: false,
-    inputValue: ''
+    inputValue: '',
+    totalPages: null,
+    totalResults: null
   };
 
   componentDidMount() {
@@ -35,13 +37,13 @@ export class Images extends Component {
       .get(`/api/photos?page=${page}&count=${count}`)
       .then(res =>
         this.setState({ images: images.concat(res.data) })
-      ).catch(err => console.log(err));
+      );
 
     this.setState({ page: page + 1 });
   }
 
   fetchSearchImages = () => {
-    const { searchPage, count, term, searchImages } = this.state;
+    const { searchPage, count, term, searchImages, totalPages } = this.state;
 
     this.setState({
       inputValue: ''
@@ -51,13 +53,19 @@ export class Images extends Component {
       .get(`/api/photos/search?term=${term}&page=${searchPage}&count=${count}`)
       .then(res =>
         this.setState({
-          searchImages: searchImages.concat(res.data.results)
+          totalPages: res.data.total_pages,
+          totalResults: res.data.total,
+          searchImages: searchImages.concat(res.data.results),
+        }, () => {
+          console.log(totalPages); // Still null after first fetch, but set on second fetch
+          console.log(this.state.totalResults); // No longer null at this point on first fetch
+          if (searchPage < totalPages) {
+            this.setState({
+              searchPage: searchPage + 1,
+            });
+          }
         }),
       );
-
-    this.setState({
-      searchPage: searchPage + 1,
-    });
   }
 
   // Necessary to place fetchSearchImages in a setState callback to ensure other state is set first
@@ -100,12 +108,7 @@ export class Images extends Component {
         <InfiniteScroll
           dataLength={this.state.blankSearch ? this.state.images.length : (this.state.newSearch || this.state.search) ? this.state.searchImages.length : this.state.images.length}
           next={this.state.search ? this.fetchSearchImages : this.fetchImages}
-          hasMore={true}
-          endMessage={
-            <p style={{textAlign: 'center'}}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
+          hasMore={this.state.search && this.state.totalResults && this.state.totalPages > this.state.searchPage ? true : !this.state.search ? true : false}
           loader={
             <div className="loader-dots">
               <span className="loader-dot"></span>
@@ -115,9 +118,9 @@ export class Images extends Component {
             </div>
           }
         >
-        {this.state.newSearch || this.state.search ? this.state.searchImages.map(image =>
+        {(this.state.newSearch || this.state.search) && this.state.totalResults ? this.state.searchImages.map(image =>
           <Image key={image.id + Math.random()} image={image} />
-        ) : this.state.blankSearch ? this.state.images.map(image =>
+        ) : (this.state.search && this.state.totalResults === 0) ? 'No results found' : this.state.blankSearch ? this.state.images.map(image =>
           <Image key={image.id + Math.random()} image={image} />
         ) : this.state.images.map(image =>
           <Image key={image.id + Math.random()} image={image} />
