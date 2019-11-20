@@ -16,6 +16,11 @@ h1 {
   text-align: center;
 }
 
+.control {
+  width: 60%;
+  margin: 50px auto 40px auto;
+}
+
 /* Optional style for div enclosing Infinite Scroll Component (all images) */
 /* .images {
   ...
