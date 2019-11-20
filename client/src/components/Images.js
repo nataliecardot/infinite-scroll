@@ -41,7 +41,7 @@ export class Images extends Component {
   fetchSearchImages = () => {
     const { searchPage, count, term, searchImages } = this.state;
 
-    this.setState({ searchPage: searchPage + 1 });
+    this.setState({ searchPage: searchPage + 1, inputValue: '' });
 
     axios
       .get(`/api/photos/search?term=${term}&page=${searchPage}&count=${count}`)
