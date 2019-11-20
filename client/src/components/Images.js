@@ -9,7 +9,7 @@ export class Images extends Component {
   state = {
     images: [],
     searchImages: [],
-    count: 4,
+    count: 10,
     page: 1,
     searchPage: 1,
     term: '',
@@ -30,26 +30,34 @@ export class Images extends Component {
 
   fetchImages = () => {
     const { page, count, images } = this.state;
-    this.setState({ page: page + 1 });
+
     axios
       .get(`/api/photos?page=${page}&count=${count}`)
       .then(res =>
         this.setState({ images: images.concat(res.data) })
-      );
+      ).catch(err => console.log(err));
+
+    this.setState({ page: page + 1 });
   }
 
   fetchSearchImages = () => {
     const { searchPage, count, term, searchImages } = this.state;
 
-    this.setState({ searchPage: searchPage + 1, inputValue: '' });
+    this.setState({
+      inputValue: ''
+    });
 
     axios
       .get(`/api/photos/search?term=${term}&page=${searchPage}&count=${count}`)
       .then(res =>
         this.setState({
           searchImages: searchImages.concat(res.data.results)
-        })
+        }),
       );
+
+    this.setState({
+      searchPage: searchPage + 1,
+    });
   }
 
   // Necessary to place fetchSearchImages in a setState callback to ensure other state is set first
@@ -93,6 +101,11 @@ export class Images extends Component {
           dataLength={this.state.blankSearch ? this.state.images.length : (this.state.newSearch || this.state.search) ? this.state.searchImages.length : this.state.images.length}
           next={this.state.search ? this.fetchSearchImages : this.fetchImages}
           hasMore={true}
+          endMessage={
+            <p style={{textAlign: 'center'}}>
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
           loader={
             <div className="loader-dots">
               <span className="loader-dot"></span>
