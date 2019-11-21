@@ -11,7 +11,7 @@ const SearchInput = props => {
   return (
     <form onSubmit={onSubmit}>
       <div className="control">
-        <input autoFocus value={props.inputValue} onChange={e => props.onSearch(e.target.value)} className="input" type="text" placeholder="Search..." />
+        <input autoFocus value={props.inputValue} onChange={e => props.onSearch(e.target.value)} className="input is-primary" type="text" placeholder="Search..." />
       </div>
     </form>
   );
