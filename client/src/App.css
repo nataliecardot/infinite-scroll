@@ -13,9 +13,10 @@ h1 {
   letter-spacing: 0.5px;
 }
 
+/* Search input container (Bulma) */
 .control {
   width: 50%;
-  margin: 50px auto 45px auto;
+  margin: 50px auto 50px auto;
 }
 
 .container {
@@ -28,7 +29,7 @@ h1 {
 }
 
 .attribution {
-  display: none;
+  /* display: none; */
   color: white;
   position: absolute;
   bottom: 20px;
@@ -40,7 +41,7 @@ h1 {
 }
 
 .single-image {
-  margin: 5px;
+  margin: 7px;
   height: 350px;
   width: 350px;
   object-fit: cover;
@@ -126,6 +127,7 @@ h1 {
   }
 
   .single-image {
+    margin: 0 0 15px 0;
     width: 100%;
   }
 

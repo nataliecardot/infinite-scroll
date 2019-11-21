@@ -107,7 +107,11 @@ export class Images extends Component {
         {
           (this.state.search && this.state.totalResults === 0) ? 'No results found' :
           this.state.images.map(image =>
-            <Image key={image.id + Math.random()} image={image} />
+            <Image
+              key={image.id + Math.random()}
+              image={image}
+              photographer={`${image.user.first_name} ${image.user.last_name}`}
+            />
           )
         }
 
