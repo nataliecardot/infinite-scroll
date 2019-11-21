@@ -11,7 +11,6 @@ export class Images extends Component {
     searchImages: [],
     count: 15,
     page: 1,
-    searchPage: 1,
     term: '',
     search: false,
     newSearch: false,
@@ -43,14 +42,14 @@ export class Images extends Component {
   }
 
   fetchSearchImages = () => {
-    const { searchPage, count, term, searchImages } = this.state;
+    const { page, count, term, searchImages } = this.state;
 
     this.setState({
       inputValue: ''
     });
 
     axios
-      .get(`/api/photos/search?term=${term}&page=${searchPage}&count=${count}`)
+      .get(`/api/photos/search?term=${term}&page=${page}&count=${count}`)
       .then(res =>
         this.setState({
           totalPages: res.data.total_pages,
@@ -59,7 +58,7 @@ export class Images extends Component {
         })
       );
     this.setState({
-      searchPage: searchPage + 1,
+      page: page + 1,
     });
   }
 
@@ -72,14 +71,12 @@ export class Images extends Component {
         newSearch: false,
         search: false,
         searchImages: [],
-        searchPage: 1,
         page: 1,
       }, this.fetchImages);
     } else {
       this.setState({
         term: this.state.inputValue,
         searchImages: [],
-        searchPage: 1,
         page: 1,
         search: true,
         newSearch: true
@@ -99,11 +96,11 @@ export class Images extends Component {
 
       <SearchInput onSearch={this.handleInputChange} inputValue={this.state.inputValue} onFormSubmit={this.handleSubmit} />
 
-      <div className="images">
+      <div>
         <InfiniteScroll
           dataLength={this.state.blankSearch ? this.state.images.length : (this.state.newSearch || this.state.search) ? this.state.searchImages.length : this.state.images.length}
           next={this.state.search ? this.fetchSearchImages : this.fetchImages}
-          hasMore={this.state.search && this.state.totalResults && this.state.totalPages > this.state.searchPage ? true : !this.state.search ? true : false}
+          hasMore={this.state.search && this.state.totalResults && this.state.totalPages > this.state.page ? true : !this.state.search ? true : false}
           loader={
             <div className="loader-dots">
               <span className="loader-dot"></span>

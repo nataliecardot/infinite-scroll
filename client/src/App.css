@@ -22,11 +22,6 @@ h1 {
   margin: 50px auto 40px auto;
 }
 
-/* Optional style for div enclosing Infinite Scroll Component (all images) */
-/* .images {
-  ...
-} */
-
 .single-image {
   margin: 1%;
   height: 350px;
