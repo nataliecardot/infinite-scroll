@@ -12,7 +12,6 @@ export class Images extends Component {
     page: 1,
     term: '',
     search: false,
-    newSearch: false,
     blankSearch: false,
     inputValue: '',
     totalPages: null,
@@ -66,7 +65,6 @@ export class Images extends Component {
       this.setState({
         images: [],
         blankSearch: true,
-        newSearch: false,
         search: false,
         page: 1,
       }, this.fetchImages);
@@ -75,8 +73,7 @@ export class Images extends Component {
         term: this.state.inputValue,
         images: [],
         page: 1,
-        search: true,
-        newSearch: true
+        search: true
       }, this.fetchImages);
     }
   }
