@@ -9,8 +9,8 @@ class App extends Component {
         <div className="hero is-fullheight has-background-light">
           <div className="hero-body">
             <div className="container">
-              <h1 className="title is-2">
-                Unsplash Infinite Scroll Gallery
+              <h1 className="title is-1">
+                Fancy Snaps
               </h1>
 
               <Images />

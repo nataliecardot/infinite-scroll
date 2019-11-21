@@ -9,7 +9,8 @@ body {
 }
 
 h1 {
-  font-family: "Carter One";
+  font-family: "Berkshire Swash", cursive;
+  letter-spacing: 0.5px;
 }
 
 .container {
