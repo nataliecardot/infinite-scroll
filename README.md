@@ -2,9 +2,11 @@
 
 Infinite scroll built with Node, Express, React, and the Unsplash API.
 
-**[View Live](https://infinite-scroll-unsplash.herokuapp.com/)**
+**[View LUive](https://fancy-snaps.herokuapp.com/)**
 
 ## Quick Start
+
+To view locally, you will first need an Unsplash API access key and secret (available [here](https://unsplash.com/developers)), which you can enter into `config/server-js` following the format in `server-sample.js`.
 
 ```bash
 # Install dependencies (will also need to install dependencies from
