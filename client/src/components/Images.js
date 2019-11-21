@@ -8,7 +8,6 @@ export class Images extends Component {
   // This is alternative class component syntax - class field declarations, allows you to initialize local state without using the constructor and declare class methods by using arrow functions without the extra need to bind them. See https://github.com/the-road-to-learn-react/react-alternative-class-component-syntax and https://www.robinwieruch.de/react-state-without-constructor
   state = {
     images: [],
-    searchImages: [],
     count: 15,
     page: 1,
     term: '',
@@ -24,45 +23,44 @@ export class Images extends Component {
     const { page, count } = this.state;
       axios
         .get(`/api/photos?page=${page}&count=${count}`)
-        .then(res => this.setState({ images: res.data }));
+        .then(res => this.setState({
+          images: res.data
+        }));
     // To prevent same images being fetched upon scrolling (in the first call to fetchImages)
-    this.setState({ page: page + count });
-  }
-
-  fetchImages = () => {
-    const { page, count, images } = this.state;
-
-    axios
-      .get(`/api/photos?page=${page}&count=${count}`)
-      .then(res =>
-        this.setState({ images: images.concat(res.data) })
-      );
-
     this.setState({ page: page + 1 });
   }
 
-  fetchSearchImages = () => {
-    const { page, count, term, searchImages } = this.state;
+  fetchImages = () => {
+    const { page, count, term, images, search } = this.state;
 
     this.setState({
       inputValue: ''
     });
 
-    axios
+    if (!search) {
+      axios
+      .get(`/api/photos?page=${page}&count=${count}`)
+      .then(res =>
+        this.setState({ images: images.concat(res.data) })
+      );
+    } else {
+      axios
       .get(`/api/photos/search?term=${term}&page=${page}&count=${count}`)
       .then(res =>
         this.setState({
           totalPages: res.data.total_pages,
           totalResults: res.data.total,
-          searchImages: searchImages.concat(res.data.results),
+          images: images.concat(res.data.results),
         })
       );
+    }
+
     this.setState({
       page: page + 1,
     });
   }
 
-  // Necessary to place fetchSearchImages in a setState callback to ensure other state is set first
+  // Necessary to place fetchImages in a setState callback to ensure other state is set first
   handleSubmit = () => {
     if (!this.state.inputValue) {
       this.setState({
@@ -70,17 +68,16 @@ export class Images extends Component {
         blankSearch: true,
         newSearch: false,
         search: false,
-        searchImages: [],
         page: 1,
       }, this.fetchImages);
     } else {
       this.setState({
         term: this.state.inputValue,
-        searchImages: [],
+        images: [],
         page: 1,
         search: true,
         newSearch: true
-      }, this.fetchSearchImages);
+      }, this.fetchImages);
     }
   }
 
@@ -98,9 +95,9 @@ export class Images extends Component {
 
       <div>
         <InfiniteScroll
-          dataLength={this.state.blankSearch ? this.state.images.length : (this.state.newSearch || this.state.search) ? this.state.searchImages.length : this.state.images.length}
-          next={this.state.search ? this.fetchSearchImages : this.fetchImages}
-          hasMore={this.state.search && this.state.totalResults && this.state.totalPages > this.state.page ? true : !this.state.search ? true : false}
+          dataLength={this.state.images.length}
+          next={this.fetchImages}
+          hasMore={(this.state.search && this.state.totalResults && (this.state.page < this.state.totalPages)) ? true : !this.state.search ? true : false}
           loader={
             <div className="loader-dots">
               <span className="loader-dot"></span>
@@ -110,13 +107,13 @@ export class Images extends Component {
             </div>
           }
         >
-        {(this.state.newSearch || this.state.search) && this.state.totalResults ? this.state.searchImages.map(image =>
-          <Image key={image.id + Math.random()} image={image} />
-        ) : (this.state.search && this.state.totalResults === 0) ? 'No results found' : this.state.blankSearch ? this.state.images.map(image =>
-          <Image key={image.id + Math.random()} image={image} />
-        ) : this.state.images.map(image =>
-          <Image key={image.id + Math.random()} image={image} />
-        )}
+        {
+          (this.state.search && this.state.totalResults === 0) ? 'No results found' :
+          this.state.images.map(image =>
+            <Image key={image.id + Math.random()} image={image} />
+          )
+        }
+
       </InfiniteScroll>
       </div>
 
