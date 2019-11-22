@@ -126,6 +126,11 @@ h1 {
     margin: 40px auto 30px auto;
   }
 
+  .attribution {
+    bottom: 33px;
+    left: 20px;
+  }
+
   .single-image {
     margin: 0 0 15px 0;
     width: 100%;
