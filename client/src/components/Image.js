@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Extracting image from props object using destructuring, thus don't need to use props.image
-export default function Image({ image, photographer }) {
+const Image = ({ image, photographer }) => {
 
   return (
     <div className="image-container">
@@ -12,3 +12,5 @@ export default function Image({ image, photographer }) {
     </div>
   );
 }
+
+export default Image;

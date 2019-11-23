@@ -13,10 +13,21 @@ h1 {
   letter-spacing: 0.5px;
 }
 
-/* Search input container (Bulma) */
-.control {
+.hero-body {
+  max-height: 100%;
+}
+
+.search-form {
   width: 50%;
-  margin: 50px auto 50px auto;
+  margin-right: 20px;
+}
+
+/* Search bar and button */
+.top-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px 0;
 }
 
 .container {
@@ -134,9 +145,18 @@ h1 {
 
 /* Small screens */
 @media screen and (max-width: 767px) {
-  .control {
+  .top-content {
+    flex-direction: column;
+    margin: 30px 0;
+  }
+
+  .button {
+    margin-top: 20px;
+  }
+
+  .search-form {
     width: 100%;
-    margin: 40px auto 30px auto;
+    margin: auto;
   }
 
   .attribution {
@@ -160,10 +180,6 @@ h1 {
 
 /* Tablets */
 @media screen and (min-width: 768px) and (max-width: 991px) {
-  .control {
-    width: 70%;
-  }
-
   .single-image {
     height: 340px;
     width: 340px;
