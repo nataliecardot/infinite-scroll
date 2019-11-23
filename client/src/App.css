@@ -26,14 +26,32 @@ h1 {
 .image-container {
   display: inline-block;
   position: relative;
+  background-color: rgba(0, 0, 0, 0);
 }
 
+/* Text */
 .attribution {
-  /* display: none; */
+  display: none;
   color: white;
   position: absolute;
   bottom: 20px;
   left: 20px;
+}
+
+.image-container:hover .attribution {
+  display: block;
+}
+
+.single-image {
+  margin: 7px;
+  height: 350px;
+  width: 350px;
+  object-fit: cover;
+}
+
+.image-container:hover .single-image {
+  opacity: 0.85;
+  transition: 0.5s;
 }
 
 .attribution:hover {
@@ -50,7 +68,7 @@ h1 {
 .single-image:hover {
   opacity: 0.7;
   transition: 0.5s;
-}
+} */
 
 /* ------------ Loader ------------ */
 
