@@ -104,6 +104,10 @@ export class Images extends Component {
   }
 
   render() {
+    // Eliminates vertical scrollbar when a single image is displayed
+    let html = document.querySelector('html');
+    this.state.randomImage ? html.style.overflowY = 'hidden' : html.style.overflowY = 'auto';
+
     return (
       <>
 
