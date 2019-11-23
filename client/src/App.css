@@ -63,7 +63,7 @@ h1 {
 .single-image:hover {
   opacity: 0.7;
   transition: 0.5s;
-} */
+}
 
 /* ------------ Loader ------------ */
 
@@ -174,13 +174,30 @@ h1 {
   }
 }
 
-/* Devices larger than tablets (non-touch screen) */
-@media screen and (min-width: 992px) {
+/* Devices larger than tablets (smaller) */
+@media screen and (min-width: 992px) and (max-width: 1599px) {
   .attribution {
     display: none;
   }
 
   .image-container:hover .attribution {
     display: block;
+  }
+}
+
+/* Devices larger than tablets (larger) */
+@media screen and (min-width: 1600px) {
+  .attribution {
+    display: none;
+  }
+
+  .image-container:hover .attribution {
+    display: block;
+  }
+
+  .single-image {
+    /* Larger than regular size */
+    height: 400px;
+    width: 400px;
   }
 }
