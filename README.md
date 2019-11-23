@@ -2,7 +2,7 @@
 
 Infinite scroll built with Node, Express, React, and the Unsplash API.
 
-**[View LUive](https://fancy-snaps.herokuapp.com/)**
+**[View Live](https://fancysnaps.herokuapp.com/)**
 
 ## Quick Start
 

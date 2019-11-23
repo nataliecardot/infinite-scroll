@@ -31,15 +31,10 @@ h1 {
 
 /* Text */
 .attribution {
-  display: none;
   color: white;
   position: absolute;
   bottom: 20px;
   left: 20px;
-}
-
-.image-container:hover .attribution {
-  display: block;
 }
 
 .single-image {
@@ -176,5 +171,16 @@ h1 {
 
   .title.is-2 {
     margin-bottom: 30px;
+  }
+}
+
+/* Devices larger than tablets (non-touch screen) */
+@media screen and (min-width: 992px) {
+  .attribution {
+    display: none;
+  }
+
+  .image-container:hover .attribution {
+    display: block;
   }
 }
