@@ -138,7 +138,7 @@ export class Images extends Component {
             <Image
               key={image.id + Math.random()}
               image={image}
-              photographer={`${image.user.first_name} ${image.user.last_name}`}
+              photographer={`${image.user.first_name ? image.user.first_name : ''} ${image.user.last_name ? image.user.last_name : ''}`}
             />
           )
         }
