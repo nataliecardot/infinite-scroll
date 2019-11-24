@@ -136,7 +136,7 @@ export class Images extends Component {
           <Image
             key={this.state.randomImage.id}
             image={this.state.randomImage}
-            photographer={`${this.state.randomImage.first_name} ${this.state.randomImage.user.last_name}`}
+            photographer={`${image.user.first_name ? image.user.first_name : ''} ${image.user.last_name ? image.user.last_name : ''}`}
           /> :
           this.state.images.map(image =>
             <Image
