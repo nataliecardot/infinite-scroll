@@ -2,8 +2,7 @@
   "name": "infinite-scroll-challenge",
   "version": "1.0.0",
   "engines": {
-    "node": "11.14.0",
-    "npm": "6.13.0"
+    "node": "12.13.1"
   },
   "description": "",
   "main": "index.js",
