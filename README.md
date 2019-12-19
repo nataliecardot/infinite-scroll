@@ -27,8 +27,8 @@ npm run dev
 
 *Front end:*
 
-`create-react-app` was used to bootstrap the app and is contained within the `client` directory (the app's front end). `axios` is used to make requests to the back end (but the Fetch API may be used instead later).
+The app's front end is contained in the `client` directory. It was bootstrapped with `create-react-app`.
 
-Create React App runs the app on its own development server, so the front and back end could not be served on the same server and port as is commonly practiced for full-stack apps. To eliminate the need for rerouting requests to the back end server and setting CORS headers, proxying is used. The `package.json` file in the front end directory contains a `proxy` field that proxies non-text/html requests to the back-end server.
+Requests to the back end are handled with [`axios`](https://www.npmjs.com/package/axios), a promise-based HTTP client.
 
-GET requests are made with [`axios`](https://www.npmjs.com/package/axios), a promise-based HTTP client.
+Create React App runs the app on its own development server, so the front and back end could not be served on the same server and port as is commonly practiced for full-stack apps. To eliminate the need for rerouting requests to the back-end server and setting CORS headers, proxying is used. The `package.json` file in the front end directory contains a `proxy` field that proxies non-text/html requests to the back-end server.
